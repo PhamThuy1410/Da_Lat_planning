@@ -33,7 +33,7 @@ def save_data(sheet_name, df):
         worksheet = sh.worksheet(sheet_name)
         worksheet.clear()
         worksheet.update([df.columns.values.tolist()] + df.values.tolist())
-        st.success(f"Dữ liệu {sheet_name} đã lưu thành công!")
+        st.success(f"Đã lưu thành công!")
     except Exception as e:
         st.error(f"Lỗi khi lưu dữ liệu: {e}")
 
