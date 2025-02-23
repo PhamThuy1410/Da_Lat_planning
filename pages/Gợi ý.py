@@ -70,4 +70,4 @@ if st.session_state.data:
             st.success("Gợi ý đã được xoá!")
             st.rerun()
 else:
-    st.write("🔹 Chưa có dữ liệu. Hãy thêm gợi ý!")
+    st.write("🔹 Hãy thêm gợi ý của ní!")
