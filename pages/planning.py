@@ -43,7 +43,7 @@ def main():
 
     # Bảng chi phí
     st.header("Bảng Chi Phí")
-    chi_phi_df = load_data("ChiPhi")
+    chi_phi_df = load_data("ChiPhi_LichTrinh")
     
     if chi_phi_df.empty:  # Nếu sheet trống hoặc lỗi, khởi tạo dữ liệu mặc định
         chi_phi_df = pd.DataFrame({
@@ -57,7 +57,7 @@ def main():
     st.write(f"### Tổng Chi Phí: {total_cost:,} VND")
     
     if st.button("Lưu Chi Phí"):
-        save_data("ChiPhi", chi_phi_df)
+        save_data("ChiPhi_LichTrinh", chi_phi_df)
 
     # Bảng kế hoạch lịch trình
     st.header("Kế Hoạch Lịch Trình")
