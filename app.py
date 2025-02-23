@@ -1,7 +1,11 @@
-# import streamlit as st
+import streamlit as st
 
-# st.title("Welcome to Đà Lạt Planner")
+# Tiêu đề của ứng dụng
+st.title("Đà Lạt Planning")
 
-# # Ghi đúng tên file mà không cần "pages/"
-# st.page_link("planning", label="Trang Planning", icon="📊")
-# st.page_link("suggest", label="Trang Gợi Ý", icon="💡")
+# Mô tả
+st.write("Vui lòng chọn trang: Planning hoặc Suggest")
+
+# Hiển thị liên kết đến các trang
+st.page_link("pages/planning.py", label="Trang Planning", icon="📖")
+st.page_link("pages/suggest.py", label="Trang Gợi Ý", icon="💡")
