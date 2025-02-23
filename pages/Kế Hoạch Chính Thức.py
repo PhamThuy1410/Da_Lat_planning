@@ -65,8 +65,10 @@ def main():
 
     if plan_df.empty:  # Nếu sheet trống hoặc lỗi, khởi tạo dữ liệu mặc định
         plan_df = pd.DataFrame({
+            "Ngày": [""],
             "Thời Gian": [""],
             "Địa Điểm": [""],
+            "Link tham khảo": [""],
             "Ước Tính Chi Phí (VND)": [0]
         })
     
