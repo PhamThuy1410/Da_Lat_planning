@@ -46,7 +46,7 @@ def main():
     total_people = people_df["Họ và Tên"].nunique()
     total_cost_people = people_df["Chi Phí (VNĐ)"].sum()
     
-    if st.button("Lưu Danh Sách Người Tham Gia"):
+    if st.button("Lưu thành công"):
         save_data("NguoiThamGia", people_df)
 
     # KPI Cards
