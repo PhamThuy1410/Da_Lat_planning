@@ -64,7 +64,7 @@ def main():
     total_cost_people = people_df["Chi Phí (VNĐ)"].sum()
 
     # Lưu dữ liệu khi nhấn nút
-    if st.button("Lưu"):
+    if st.button("Lưu", key="save_people"):
         save_data("NguoiThamGia", people_df)
 
     # KPI Cards
@@ -98,7 +98,7 @@ def main():
     total_cost = chi_phi_df["Số tiền (VND)"].sum()
     st.write(f"### Tổng chi phí: {total_cost:,} VND")
 
-    if st.button("Lưu"):
+    if st.button("Lưu", key="save_cost"):
         save_data("ChiPhi_LichTrinh", chi_phi_df)
 
 
@@ -127,7 +127,7 @@ def main():
     total_plan_cost = plan_df["Ước tính chi phí (VND)"].sum()
     st.write(f"### Tổng ước tính chi phí: {total_plan_cost:,} VND")
 
-    if st.button("Lưu Lịch Trình"):
+    if st.button("Lưu Lịch Trình", key="save_plan"):
         save_data("LichTrinh", plan_df)
 
 
