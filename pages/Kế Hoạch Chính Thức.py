@@ -145,7 +145,7 @@ def main():
 
     # Hiển thị KPI Budget còn lại
     st.header("💰 Số tiền còn lại")
-    st.metric(label="", value=f"{budget_remaining:,} VND")
+    st.metric(label=" ", value=f"{budget_remaining:,} VND")
     
     # Xuất file CSV
     st.download_button(
