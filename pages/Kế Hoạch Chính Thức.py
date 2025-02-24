@@ -127,7 +127,7 @@ def main():
     total_plan_cost = plan_df["Ước tính chi phí (VND)"].sum()
     st.write(f"### Tổng chi phí planning: {total_plan_cost:,} VND")
 
-    if st.button("Lưu Lịch Trình", key="save_plan"):
+    if st.button("Lưu", key="save_plan"):
         save_data("LichTrinh", plan_df)
 
     # Hiển thị KPI Budget còn lại
