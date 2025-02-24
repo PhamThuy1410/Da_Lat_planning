@@ -122,7 +122,16 @@ def main():
         .astype(int)
     )
 
-    plan_df = st.data_editor(plan_df, num_rows="dynamic", key="plan")
+    plan_df = st.data_editor(
+    plan_df,
+    num_rows="dynamic",
+    key="plan",
+    use_container_width=True,
+    column_config={
+        "Phân loại": st.column_config.SelectboxColumn(
+            "Phân loại", options=["Checking", "Ăn uống"], required=True)
+        }
+    )
 
     total_plan_cost = plan_df["Ước tính chi phí (VND)"].sum()
     st.write(f"### Tổng chi phí planning: {total_plan_cost:,} VND")
