@@ -5,7 +5,7 @@ from google.oauth2.service_account import Credentials
 
 # Google Sheets config
 SHEET_NAME = "GoiY"
-SHEET_ID = "1pWDgcnuznQDXz-bOw1fttpZZP1-HWnW9nnznUsFHc7A"  # Cập nhật Google Sheet ID
+SHEET_ID = "1pWDgcnuznQDXz-bOw1fttpZZP1-HWnW9nnznUsFHc7A"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 # Load credentials từ Streamlit secrets
@@ -23,51 +23,30 @@ def load_data():
     """Load dữ liệu từ Google Sheets"""
     if sheet:
         data = sheet.get_all_records()
-        return data if data else []
-    return []
+        return pd.DataFrame(data) if data else pd.DataFrame(columns=["Tên người", "Gợi ý", "Link"])
+    return pd.DataFrame(columns=["Tên người", "Gợi ý", "Link"])
 
-def save_data(data):
+def save_data(df):
     """Lưu dữ liệu vào Google Sheets"""
     if sheet:
         sheet.clear()
-        sheet.append_row(["Tên người", "Gợi ý", "Link"])
-        if data:
-            sheet.update("A2", [list(row.values()) for row in data])  # Cập nhật nhanh hơn
+        sheet.append_row(["Họ và tên", "Gợi ý", "Link", "Chi phí"])
+        if not df.empty:
+            sheet.update("A2", df.values.tolist())  
 
 # Khởi tạo session state nếu chưa có
 if "data" not in st.session_state:
     st.session_state.data = load_data()
 
-st.title("Gợi ý thêm")
+st.title("📌 Gợi ý thêm")
 
-# Nhập thông tin mới
-with st.form("suggest_form", clear_on_submit=True):
-    ten_nguoi = st.text_input("Tên người *", placeholder="Nhập tên người")
-    suggest = st.text_area("Gợi ý", placeholder="Nhập gợi ý (có thể để trống)")
-    link = st.text_input("Link", placeholder="Nhập link (có thể để trống)")
+# Hiển thị bảng nhập dữ liệu trực tiếp
+st.subheader("✏️ Nhập dữ liệu trực tiếp vào bảng")
+edited_data = st.data_editor(st.session_state.data, num_rows="dynamic", use_container_width=True)
 
-    submitted = st.form_submit_button("Thêm vào bảng")
-
-    if submitted and ten_nguoi:
-        new_entry = {"Tên người": ten_nguoi, "Gợi ý": suggest, "Link": link}
-        st.session_state.data.append(new_entry)
-        save_data(st.session_state.data)
-        st.success("Gợi ý đã được lưu!")
-        st.rerun()
-
-# Hiển thị bảng với nút Xoá trên từng dòng
-if st.session_state.data:
-    df = pd.DataFrame(st.session_state.data)
-
-    for i, row in df.iterrows():
-        col1, col2, col3, col4 = st.columns([3, 3, 3, 1])
-        col1.write(row["Tên người"])
-        col2.write(row["Gợi ý"])
-        col3.write(row["Link"])
-        if col4.button("🗑️ Xoá", key=f"delete_{i}"):
-            st.session_state.data.pop(i)
-            save_data(st.session_state.data)
-            st.success("Gợi ý đã được xoá!")
-            st.rerun()
-else:
-    st.write("🔹 Hãy thêm gợi ý của ní!")
+# Khi người dùng nhấn "Lưu dữ liệu"
+if st.button("💾 Lưu dữ liệu"):
+    st.session_state.data = edited_data
+    save_data(st.session_state.data)
+    st.success("✅ Dữ liệu đã được lưu!")
+    st.rerun()
