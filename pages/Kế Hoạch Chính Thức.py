@@ -125,7 +125,7 @@ def main():
     plan_df = st.data_editor(plan_df, num_rows="dynamic", key="plan")
 
     total_plan_cost = plan_df["Ước tính chi phí (VND)"].sum()
-    st.write(f"### Tổng ước tính chi phí: {total_plan_cost:,} VND")
+    st.write(f"### Tổng chi phí planning: {total_plan_cost:,} VND")
 
     if st.button("Lưu Lịch Trình", key="save_plan"):
         save_data("LichTrinh", plan_df)
