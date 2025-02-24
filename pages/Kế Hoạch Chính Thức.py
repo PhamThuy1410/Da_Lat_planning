@@ -130,7 +130,14 @@ def main():
     if st.button("Lưu Lịch Trình", key="save_plan"):
         save_data("LichTrinh", plan_df)
 
+    # Hiển thị KPI Budget còn lại
+    # Tính toán Budget còn lại
+    budget_remaining = int(total_cost_people - (total_cost_trip + total_plan_cost))  # Đảm bảo kiểu int
 
+    # Hiển thị KPI Budget còn lại
+    st.header("💰 Số tiền còn lại")
+    st.metric(label="", value=f"{budget_remaining:,} VND")
+    
     # Xuất file CSV
     st.download_button(
         label="Tải Xuống Kế Hoạch (.csv)",
