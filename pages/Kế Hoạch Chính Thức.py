@@ -96,7 +96,7 @@ def main():
     chi_phi_df = st.data_editor(chi_phi_df, num_rows="dynamic", key="chi_phi")
 
     total_cost_trip = chi_phi_df["Số tiền (VND)"].sum()
-    st.write(f"### Tổng chi phí chuyến đi: {total_cost:,} VND")
+    st.write(f"### Tổng chi phí chuyến đi: {total_cost_trip:,} VND")
 
     if st.button("Lưu", key="save_cost"):
         save_data("ChiPhi_LichTrinh", chi_phi_df)
