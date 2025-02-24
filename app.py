@@ -4,7 +4,7 @@ import streamlit as st
 st.title("Đà Lạt Planning")
 
 # Mô tả
-st.write("Vui lòng chọn trang: Kế Hoạch Chính Thức hoặc Gợi Ý")
+st.write("Vui lòng chọn trang:")
 
 # Hiển thị liên kết đến các trang
 st.page_link("pages/Kế Hoạch Chính Thức.py", label="Kế Hoạch Chính Thức", icon="📖")
