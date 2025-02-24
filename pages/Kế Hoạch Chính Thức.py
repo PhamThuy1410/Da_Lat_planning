@@ -39,7 +39,7 @@ def main():
     st.title("Project: Đà Lạt Planning")
 
     # Load danh sách người tham gia
-    st.header("Danh Sách Người Tham Gia")
+    st.header("Danh sách các ní tham gia")
     people_df = load_data("NguoiThamGia")
 
     if people_df.empty:
@@ -64,15 +64,15 @@ def main():
     total_cost_people = people_df["Chi Phí (VNĐ)"].sum()
 
     # Lưu dữ liệu khi nhấn nút
-    if st.button("Lưu Danh Sách Người Tham Gia"):
+    if st.button("Lưu"):
         save_data("NguoiThamGia", people_df)
 
     # KPI Cards
     col1, col2 = st.columns(2)
     with col1:
-        st.metric(label="👥 Tổng Số Người Tham Gia", value=total_people)
+        st.metric(label="👥 Tổng số ní tham gia", value=total_people)
     with col2:
-        st.metric(label="💰 Tổng Chi Phí Người Tham Gia", value=f"{int(total_cost_people):,} VND")
+        st.metric(label="💰 Tổng chi phí", value=f"{int(total_cost_people):,} VND")
 
 
 
@@ -88,22 +88,22 @@ def main():
 
     # Chuyển cột "Số Tiền (VND)" thành số, xử lý dấu phẩy nếu có
     chi_phi_df["Số Tiền (VND)"] = (
-        pd.to_numeric(chi_phi_df["Số Tiền (VND)"].astype(str).str.replace(",", ""), errors="coerce")
+        pd.to_numeric(chi_phi_df["Số tiền (VND)"].astype(str).str.replace(",", ""), errors="coerce")
         .fillna(0)
         .astype(int)
     )
 
     chi_phi_df = st.data_editor(chi_phi_df, num_rows="dynamic", key="chi_phi")
 
-    total_cost = chi_phi_df["Số Tiền (VND)"].sum()
-    st.write(f"### Tổng Chi Phí: {total_cost:,} VND")
+    total_cost = chi_phi_df["Số tiền (VND)"].sum()
+    st.write(f"### Tổng chi phí: {total_cost:,} VND")
 
-    if st.button("Lưu Chi Phí"):
+    if st.button("Lưu"):
         save_data("ChiPhi_LichTrinh", chi_phi_df)
 
 
     # Bảng kế hoạch lịch trình
-    st.header("Kế Hoạch Lịch Trình")
+    st.header("Planning")
     plan_df = load_data("LichTrinh")
 
     if plan_df.empty:
@@ -116,16 +116,16 @@ def main():
         })
 
     # Xử lý dữ liệu: chuyển cột "Ước Tính Chi Phí (VND)" thành số nguyên
-    plan_df["Ước Tính Chi Phí (VND)"] = (
-        pd.to_numeric(plan_df["Ước Tính Chi Phí (VND)"].astype(str).str.replace(",", ""), errors="coerce")
+    plan_df["Ước tính chi phí (VND)"] = (
+        pd.to_numeric(plan_df["Ước tính chi phí (VND)"].astype(str).str.replace(",", ""), errors="coerce")
         .fillna(0)
         .astype(int)
     )
 
     plan_df = st.data_editor(plan_df, num_rows="dynamic", key="plan")
 
-    total_plan_cost = plan_df["Ước Tính Chi Phí (VND)"].sum()
-    st.write(f"### Tổng Ước Tính Chi Phí Lịch Trình: {total_plan_cost:,} VND")
+    total_plan_cost = plan_df["Ước tính chi phí (VND)"].sum()
+    st.write(f"### Tổng ước tính chi phí: {total_plan_cost:,} VND")
 
     if st.button("Lưu Lịch Trình"):
         save_data("LichTrinh", plan_df)
