@@ -87,7 +87,7 @@ def main():
         })
 
     # Chuyển cột "Số Tiền (VND)" thành số, xử lý dấu phẩy nếu có
-    chi_phi_df["Số Tiền (VND)"] = (
+    chi_phi_df["Số tiền (VND)"] = (
         pd.to_numeric(chi_phi_df["Số tiền (VND)"].astype(str).str.replace(",", ""), errors="coerce")
         .fillna(0)
         .astype(int)
