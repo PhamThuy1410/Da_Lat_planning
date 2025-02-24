@@ -110,9 +110,9 @@ def main():
         plan_df = pd.DataFrame({
             "Ngày": [""],
             "Thời Gian": [""],
-            "Địa Điểm": [""],
+            "Địa điểm": [""],
             "Link tham khảo": [""],
-            "Ước Tính Chi Phí (VND)": [0]
+            "Ước tính chi phí (VND)": [0]
         })
 
     # Xử lý dữ liệu: chuyển cột "Ước Tính Chi Phí (VND)" thành số nguyên
