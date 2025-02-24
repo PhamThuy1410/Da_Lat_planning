@@ -7,5 +7,5 @@ st.title("Đà Lạt Planning")
 st.write("Vui lòng chọn trang: Kế Hoạch Chính Thức hoặc Gợi Ý")
 
 # Hiển thị liên kết đến các trang
-st.page_link("pages/Kế Hoạch Chính Thức.py", label="Trang Planning", icon="📖")
-st.page_link("pages/Gợi ý.py", label="Trang Gợi Ý", icon="💡")
+st.page_link("pages/Kế Hoạch Chính Thức.py", label="Kế Hoạch Chính Thức", icon="📖")
+st.page_link("pages/Gợi ý.py", label="Gợi Ý", icon="💡")
