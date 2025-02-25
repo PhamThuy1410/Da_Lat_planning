@@ -36,10 +36,10 @@ def save_data(sheet_name, df):
         st.error(f"Lỗi khi lưu dữ liệu: {e}")
 
 def main():
-    st.title("Project: Đà Lạt Planning")
+    st.title("PROJECT: ĐÀ LẠT PLANNING")
 
     # Load danh sách người tham gia
-    st.header("Danh sách các ní tham gia")
+    st.header("DANH SÁCH THAM GIA")
     people_df = load_data("NguoiThamGia")
 
     if people_df.empty:
@@ -77,7 +77,7 @@ def main():
 
 
     # Bảng chi phí
-    st.header("Chi phí chuyến đi")
+    st.header("CHI PHÍ CỐ ĐỊNH")
     chi_phi_df = load_data("ChiPhi_LichTrinh")
 
     if chi_phi_df.empty:
@@ -103,7 +103,7 @@ def main():
 
 
     # Bảng kế hoạch lịch trình
-    st.header("Planning")
+    st.header("LỊCH TRÌNH VÀ CHI PHÍ")
     plan_df = load_data("LichTrinh")
 
     if plan_df.empty:
