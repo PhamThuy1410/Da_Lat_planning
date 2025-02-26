@@ -71,7 +71,7 @@ st.header("CHI PHÍ CỐ ĐỊNH")
 chi_phi_df = load_data("ChiPhi_LichTrinh")
 if "Chi phí" in chi_phi_df.columns:
     chi_phi_df["Chi phí"] = (
-        pd.to_numeric(chi_phi_df["Số tiền (VND)"].astype(str).str.replace(",", ""), errors="coerce")
+        pd.to_numeric(chi_phi_df["Chi phí"].astype(str).str.replace(",", ""), errors="coerce")
         .fillna(0)
         .astype(int)
     )
