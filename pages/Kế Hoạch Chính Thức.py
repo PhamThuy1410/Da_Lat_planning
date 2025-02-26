@@ -36,6 +36,15 @@ def save_data(sheet_name, df):
         st.error(f"Lỗi khi lưu dữ liệu: {e}")
 
 def main():
+    st.markdown(
+    """
+    <h1 style='color: #00FFFF; text-align: center; font-weight: bold;'>
+        PROJECT: ĐÀ LẠT PLANNING
+    </h1>
+    """,
+    unsafe_allow_html=True
+    )
+
     st.title("PROJECT: ĐÀ LẠT PLANNING")
 
     # Load danh sách người tham gia
@@ -66,8 +75,6 @@ def main():
     # Lưu dữ liệu khi nhấn nút
     if st.button("Lưu", key="save_people"):
         save_data("NguoiThamGia", people_df)
-
-    col1, col2 = st.columns(2)
 
     # Áp dụng CSS để chỉnh màu của metric
     st.markdown(
