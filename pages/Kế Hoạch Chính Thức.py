@@ -49,12 +49,12 @@ st.title("PROJECT: ĐÀ LẠT PLANNING")
 st.header("DANH SÁCH THAM GIA")
 people_df = load_data("NguoiThamGia")
 if people_df.empty:
-    people_df = pd.DataFrame({"Họ và Tên": [], "Chi Phí (VNĐ)": []})
-people_df["Chi Phí (VNĐ)"] = pd.to_numeric(people_df["Chi Phí (VNĐ)"].astype(str).str.replace(",", ""), errors="coerce").fillna(0).astype(int)
+    people_df = pd.DataFrame({"Full Name": [], "Budget": []})
+people_df["Budget"] = pd.to_numeric(people_df["Budget"].astype(str).str.replace(",", ""), errors="coerce").fillna(0).astype(int)
 people_df = st.data_editor(people_df, num_rows="dynamic", key="people")
 
-total_people = people_df["Họ và Tên"].nunique()
-total_cost_people = people_df["Chi Phí (VNĐ)"].sum()
+total_people = people_df["Full Name"].nunique()
+total_cost_people = people_df["Budget"].sum()
 if st.button("Lưu", key="save_people"):
     save_data("NguoiThamGia", people_df)
 
