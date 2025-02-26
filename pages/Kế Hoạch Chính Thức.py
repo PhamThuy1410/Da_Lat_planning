@@ -54,7 +54,7 @@ def main():
     <style>
         h2 {
             color: #FFFFFF !important; /* Đổi màu tiêu đề thành cam */
-            font-size: 40px !important;
+            font-size: 35px !important;
             font-weight: 700 !important; 
         }
     </style>
