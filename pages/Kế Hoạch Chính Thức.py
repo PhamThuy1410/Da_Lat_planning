@@ -74,9 +74,9 @@ def main():
         """
         <style>
             div[data-testid="stMetricValue"] {
-                color: #003366 !important;  /* Màu xanh */
+                color: #FFA500 !important;  /* Màu xanh */
                 font-weight: 900 !important; /* Chữ đậm hơn */
-                font-size: 50px !important; /* Tăng kích thước */
+                font-size: 40px !important; /* Tăng kích thước */
             }
         </style>
         """,
