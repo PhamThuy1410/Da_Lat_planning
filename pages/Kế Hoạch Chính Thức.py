@@ -74,7 +74,7 @@ def main():
         """
         <style>
             div[data-testid="stMetricValue"] {
-                color: #00FF00 !important;  /* Màu xanh */
+                color: #003366 !important;  /* Màu xanh */
             }
         </style>
         """,
