@@ -70,9 +70,9 @@ def main():
     # KPI Cards
     col1, col2 = st.columns(2)
     with col1:
-        st.metric(label="👥 Tổng số ní tham gia", value=total_people)
+        st.metric(label="👥 TỔNG SỐ NGƯỜI THAM GIA", value=total_people)
     with col2:
-        st.metric(label="💰 Tổng chi phí", value=f"{int(total_cost_people):,} VND")
+        st.metric(label="💰 TỔNG CHI PHÍ", value=f"{int(total_cost_people):,} VND")
 
 
 
@@ -96,7 +96,7 @@ def main():
     chi_phi_df = st.data_editor(chi_phi_df, num_rows="dynamic", key="chi_phi")
 
     total_cost_trip = chi_phi_df["Số tiền (VND)"].sum()
-    st.write(f"### Tổng chi phí chuyến đi: {total_cost_trip:,} VND")
+    st.write(f"### TỔNG CHI PHÍ: {total_cost_trip:,} VND")
 
     if st.button("Lưu", key="save_cost"):
         save_data("ChiPhi_LichTrinh", chi_phi_df)
@@ -134,7 +134,7 @@ def main():
     )
 
     total_plan_cost = plan_df["Ước tính chi phí (VND)"].sum()
-    st.write(f"### Tổng chi phí planning: {total_plan_cost:,} VND")
+    st.write(f"### TỔNG CHI PHÍ: {total_plan_cost:,} VND")
 
     if st.button("Lưu", key="save_plan"):
         save_data("LichTrinh", plan_df)
@@ -144,16 +144,8 @@ def main():
     budget_remaining = int(total_cost_people - (total_cost_trip + total_plan_cost))  # Đảm bảo kiểu int
 
     # Hiển thị KPI Budget còn lại
-    st.header("💰 Số tiền còn lại")
+    st.header("💰 SỐ TIỀN CÒN LẠI")
     st.metric(label=" ", value=f"{budget_remaining:,} VND")
-    
-    # Xuất file CSV
-    st.download_button(
-        label="Tải Xuống Kế Hoạch (.csv)",
-        data=plan_df.to_csv(index=False).encode('utf-8'),
-        file_name="ke_hoach_du_lich.csv",
-        mime="text/csv"
-    )
 
 if __name__ == "__main__":
     main()
