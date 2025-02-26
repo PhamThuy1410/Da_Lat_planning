@@ -67,12 +67,28 @@ def main():
     if st.button("Lưu", key="save_people"):
         save_data("NguoiThamGia", people_df)
 
-    # KPI Cards
     col1, col2 = st.columns(2)
+
+    # CSS để đổi màu xanh
+    st.markdown(
+        """
+        <style>
+            .metric-container {
+                color: #00FF00 !important; /* Màu xanh */
+            }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    #Card KPI
     with col1:
         st.metric(label="👥 TỔNG SỐ NGƯỜI THAM GIA", value=total_people)
+        st.markdown('<p class="metric-container">👥 TỔNG SỐ NGƯỜI THAM GIA</p>', unsafe_allow_html=True)
+    
     with col2:
         st.metric(label="💰 TỔNG CHI PHÍ", value=f"{int(total_cost_people):,} VND")
+        st.markdown('<p class="metric-container">💰 TỔNG CHI PHÍ</p>', unsafe_allow_html=True)
 
 
 
