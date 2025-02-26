@@ -38,14 +38,12 @@ def save_data(sheet_name, df):
 def main():
     st.markdown(
     """
-    <h1 style='color: #00FFFF; text-align: center; font-weight: bold;'>
+    <h1 style='color: #FFA500; text-align: center; font-weight: bold;'>
         PROJECT: ĐÀ LẠT PLANNING
     </h1>
     """,
     unsafe_allow_html=True
     )
-
-    st.title("PROJECT: ĐÀ LẠT PLANNING")
 
     # Load danh sách người tham gia
     st.header("DANH SÁCH THAM GIA")
