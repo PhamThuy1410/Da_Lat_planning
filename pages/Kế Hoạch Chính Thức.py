@@ -87,24 +87,24 @@ st.markdown(f"<div class='custom-metric-value'>{chi_phi_df['Chi phí'].sum():,}<
 # LỊCH TRÌNH VÀ CHI PHÍ
 st.header("LỊCH TRÌNH VÀ CHI PHÍ")
 plan_df = load_data("LichTrinh")
-if "Ước tính chi phí (VND)" in chi_phi_df.columns:
-    chi_phi_df["Ước tính chi phí (VND)"] = (
-        pd.to_numeric(chi_phi_df["Ước tính chi phí (VND)"].astype(str).str.replace(",", ""), errors="coerce")
+if "Chi phí" in chi_phi_df.columns:
+    chi_phi_df["Chi phí"] = (
+        pd.to_numeric(chi_phi_df["Chi phí"].astype(str).str.replace(",", ""), errors="coerce")
         .fillna(0)
         .astype(int)
     )
 else:
-    chi_phi_df["Ước tính chi phí (VND)"] = 0  
+    chi_phi_df["Chi phí"] = 0  
 plan_df = st.data_editor(plan_df, num_rows="dynamic", key="plan", use_container_width=True)
 
 if st.button("Lưu", key="save_plan"):
     save_data("LichTrinh", plan_df)
     
-total_plan_cost = plan_df["Ước tính chi phí (VND)"].sum()
+total_plan_cost = plan_df["Chi phí"].sum()
 st.markdown(f"<div class='custom-metric-label'>💰 TỔNG CHI PHÍ LỊCH TRÌNH</div>", unsafe_allow_html=True)
 st.markdown(f"<div class='custom-metric-value'>{int(total_plan_cost):,}</div>", unsafe_allow_html=True)
 
 # SỐ DƯ HIỆN TẠI
-budget_remaining = total_cost_people - (chi_phi_df["Số tiền (VND)"].sum() + plan_df["Ước tính chi phí (VND)"].sum())
+budget_remaining = total_cost_people - (chi_phi_df["Chi phí"].sum() + plan_df["Chi phí"].sum())
 st.markdown(f"<div class='custom-metric-label'>💰 SỐ DƯ HIỆN TẠI</div>", unsafe_allow_html=True)
 st.markdown(f"<div class='custom-metric-value'>{int(budget_remaining):,}</div>", unsafe_allow_html=True)
