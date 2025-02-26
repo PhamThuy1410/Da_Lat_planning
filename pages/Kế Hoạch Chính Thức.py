@@ -38,13 +38,31 @@ def save_data(sheet_name, df):
 def main():
     st.markdown(
     """
-    <h1 style='color: #FFA500; text-align: center; font-weight: bold;'>
-        PROJECT: ĐÀ LẠT PLANNING
-    </h1>
+    <style>
+        h1 {
+            color: #B8D8D8 !important; /* Đổi màu tiêu đề thành cam */
+            font-size: 50px !important;
+            font-weight: 700 !important; 
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
+    
+    st.markdown(
+    """
+    <style>
+        h2 {
+            color: #FFFFFF !important; /* Đổi màu tiêu đề thành cam */
+            font-size: 40px !important;
+            font-weight: 700 !important; 
+        }
+    </style>
     """,
     unsafe_allow_html=True
     )
 
+    st.title("PROJECT: ĐÀ LẠT PLANNING")
     # Load danh sách người tham gia
     st.header("DANH SÁCH THAM GIA")
     people_df = load_data("NguoiThamGia")
@@ -74,29 +92,31 @@ def main():
     if st.button("Lưu", key="save_people"):
         save_data("NguoiThamGia", people_df)
 
-    # Áp dụng CSS để chỉnh màu của metric
     st.markdown(
-        """
-        <style>
-            div[data-testid="stMetricValue"] {
-                color: #FFA500 !important;  /* Màu xanh */
-                font-weight: 900 !important; /* Chữ đậm hơn */
-                font-size: 40px !important; /* Tăng kích thước */
-            }
+    """
+    <style>
+        .custom-metric-label {
+            color: #7A9E9F !important;  /* Màu cam */
+            font-weight: 700 !important; /* Chữ đậm */
+            font-size: 20px !important; /* Kích thước chữ */
+        }
+        .custom-metric-value {
+            color: #FFFFFF !important;  /* Màu xanh ngọc */
+            font-size: 40px !important; /* Chữ to hơn */
+        }
         </style>
         """,
         unsafe_allow_html=True
     )
-    
+
     col1, col2 = st.columns(2)
     with col1:
-        st.metric(label="👥 TỔNG SỐ NGƯỜI THAM GIA", value=total_people)
-    
+        st.markdown(f"<div class='custom-metric-label'>👥 TỔNG SỐ NGƯỜI THAM GIA</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='custom-metric-value'>{total_people}</div>", unsafe_allow_html=True)
+
     with col2:
-        st.metric(label="💰 TỔNG CHI PHÍ", value=f"{int(total_cost_people):,} VND")
-
-
-
+        st.markdown(f"<div class='custom-metric-label'>💰 TỔNG CHI PHÍ</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='custom-metric-value'>{int(total_cost_people):,} VND</div>", unsafe_allow_html=True)
 
     # Bảng chi phí
     st.header("CHI PHÍ CỐ ĐỊNH")
