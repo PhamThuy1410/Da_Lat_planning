@@ -35,7 +35,7 @@ st.markdown(
         body { background-color: #0E1117; color: white; }
         h1 { color: #A0D683 !important; font-size: 50px !important; font-weight: 700 !important; }
         h2 { color: #B3C8CF !important; font-size: 40px !important; font-weight: 700 !important; }
-        .custom-metric-label { color: #F0F0D7 !important; font-weight: 700 !important; font-size: 25px !important; }
+        .custom-metric-label { color: #FFE3E3 !important; font-weight: 700 !important; font-size: 25px !important; }
         .custom-metric-value { color: #FFFFFF !important; font-size: 30px !important; }
     </style>
     """,
