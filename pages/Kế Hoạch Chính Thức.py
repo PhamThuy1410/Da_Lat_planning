@@ -87,6 +87,8 @@ st.markdown(f"<div class='custom-metric-value'>{chi_phi_df['Chi phí'].sum():,}<
 # LỊCH TRÌNH VÀ CHI PHÍ
 st.header("LỊCH TRÌNH VÀ CHI PHÍ")
 plan_df = load_data("LichTrinh")
+chi_phi_df = load_data("ChiPhi_LichTrinh")
+
 if "Chi phí" in chi_phi_df.columns:
     chi_phi_df["Chi phí"] = (
         pd.to_numeric(chi_phi_df["Chi phí"].astype(str).str.replace(",", ""), errors="coerce")
@@ -95,7 +97,17 @@ if "Chi phí" in chi_phi_df.columns:
     )
 else:
     chi_phi_df["Chi phí"] = 0  
-plan_df = st.data_editor(plan_df, num_rows="dynamic", key="plan", use_container_width=True)
+
+if not plan_df.empty:
+    unique_dates = plan_df["Ngày"].unique()
+    selected_date = st.selectbox("Chọn ngày để xem lịch trình:", unique_dates)
+    
+    # Lọc dữ liệu theo ngày được chọn
+    filtered_plan_df = plan_df[plan_df["Ngày"] == selected_date]
+    
+    plan_df = st.data_editor(filtered_plan_df, num_rows="dynamic", key="plan", use_container_width=True)
+else:
+    st.warning("Không có dữ liệu lịch trình để hiển thị.")
 
 if st.button("Lưu", key="save_plan"):
     save_data("LichTrinh", plan_df)
