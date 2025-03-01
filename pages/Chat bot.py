@@ -35,7 +35,7 @@ lich_trinh_df = load_data("LichTrinh")
 people_list = ", ".join(people_df["Họ và Tên"].tolist())
 total_budget = people_df["Budget"].sum()
 total_fixed_cost = chi_phi_df["Chi phí"].sum()
-total_plan_cost = chi_phi_df["Chi phí"].sum()
+total_plan_cost = lich_trinh_df["Chi phí"].sum()
 remaining_budget = total_budget - (total_fixed_cost + total_plan_cost)
 
 import pandas as pd
