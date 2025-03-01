@@ -1,3 +1,4 @@
 streamlit
 pandas
 gspread
+langchain_google_genai
