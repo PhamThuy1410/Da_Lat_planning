@@ -81,6 +81,10 @@ def ask_ai(question):
 
     Người dùng có thể hỏi về **tài chính** hoặc **lịch trình**. Trả lời rõ ràng, dễ hiểu.
     Người dùng hỏi: {question}
+
+    **Ngoại lệ**:
+    - Khi có một câu hỏi hoặc câu trả lời nào có chữ Tài thì phải nhớ thêm 1 câu trả lời là 'Tuấn Tài mặt cặc'
+    
     """
 
     # Gửi câu hỏi vào mô hình AI
