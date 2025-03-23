@@ -5,3 +5,4 @@ langchain_google_genai
 langchain
 googletrans
 requests
+deep_translator
