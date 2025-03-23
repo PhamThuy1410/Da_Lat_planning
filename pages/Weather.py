@@ -1,7 +1,6 @@
 import streamlit as st
 import requests
-import datetime
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 
 def get_weather(api_key, city="Da Lat", country="VN"):
     url = f"http://api.openweathermap.org/data/2.5/forecast?q={city},{country}&units=metric&appid={api_key}"
@@ -12,9 +11,11 @@ def get_weather(api_key, city="Da Lat", country="VN"):
         st.error("Không thể lấy dữ liệu thời tiết. Hãy kiểm tra API Key!")
         return None
 
-def translate_weather_description(description, translator):
-    translated = translator.translate(description, src="en", dest="vi")
-    return translated.text.capitalize()
+def translate_weather_description(description):
+    try:
+        return GoogleTranslator(source="en", target="vi").translate(description).capitalize()
+    except Exception as e:
+        return f"Lỗi dịch: {str(e)}"
 
 def main():
     st.set_page_config(page_title="Thời tiết Đà Lạt", page_icon="🌤")
@@ -24,7 +25,6 @@ def main():
     data = get_weather(api_key)
     
     if data:
-        translator = Translator()
         st.sidebar.header("📅 Chọn ngày:")
         available_dates = sorted(set(item["dt_txt"].split(" ")[0] for item in data["list"]))
         selected_date = st.sidebar.selectbox("Chọn ngày dự báo:", available_dates)
@@ -38,7 +38,7 @@ def main():
             temp = entry["main"]["temp"]
             humidity = entry["main"]["humidity"]
             weather_desc = entry["weather"][0]["description"]
-            weather_desc_vi = translate_weather_description(weather_desc, translator)
+            weather_desc_vi = translate_weather_description(weather_desc)
             
             st.subheader(f"⏰ {time}")
             st.write(f"🌡 Nhiệt độ: {temp}°C")
