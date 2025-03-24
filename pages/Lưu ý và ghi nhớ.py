@@ -3,7 +3,7 @@ import streamlit as st
 def main():
     st.set_page_config(page_title="Lưu ý và Ghi nhớ", page_icon="📝")
     
-    st.title("📌 Lưu ý và Ghi nhớ cho Chuyến đi Đà Lạt")
+    st.title("📌 Lưu ý và ghi nhớ cho chuyến đi Đà Lạt")
     
     # Di chuyển
     st.header("🚍 Di chuyển")
