@@ -16,8 +16,8 @@ def main():
     
     # Chỗ ở
     st.header("🏨 Chỗ ở")
-    st.write("- **Khách sạn ABC**")
-    st.write("- **Địa chỉ**: 123 Đường Số 3, Phường 3, Thành phố Đà Lạt.")
+    st.write("- **Homestay Nhà của ba**")
+    st.write("- **Địa chỉ**: 244/4 Đường Phù Đổng Thiên Vương, Phường 8, Thành phố Đà Lạt")
     
     # Danh sách đồ cần mang theo
     st.header("🎒 Danh sách đồ cần mang theo")
