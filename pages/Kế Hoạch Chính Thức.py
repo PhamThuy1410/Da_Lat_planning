@@ -6,8 +6,8 @@ from google.oauth2.service_account import Credentials
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 credentials = Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes=SCOPES)
 
-gc = gspread.Client(auth=credentials)  # Dùng Client thay vì authorize
-gc.session.headers.update({'Authorization': f'Bearer {credentials.token}'})
+gc = gspread.authorize(credentials)  # Sử dụng đúng phương thức authorize()
+
 
 @st.cache_data
 def get_worksheet(sheet_name):
