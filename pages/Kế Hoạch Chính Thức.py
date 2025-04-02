@@ -64,24 +64,6 @@ with col2:
     st.markdown(f"<div class='custom-metric-label'>💰 TỔNG CHI PHÍ</div>", unsafe_allow_html=True)
     st.markdown(f"<div class='custom-metric-value'>{total_cost_people:,}</div>", unsafe_allow_html=True)
 
-# CHI PHÍ CỐ ĐỊNH
-st.header("CHI PHÍ CỐ ĐỊNH")
-chi_phi_df = load_data("ChiPhi_LichTrinh")
-if "Chi phí" in chi_phi_df.columns:
-    chi_phi_df["Chi phí"] = (
-        pd.to_numeric(chi_phi_df["Chi phí"].astype(str).str.replace(",", ""), errors="coerce")
-        .fillna(0)
-        .astype(int)
-    )
-else:
-    chi_phi_df["Chi phí"] = 0  
-chi_phi_df = st.data_editor(chi_phi_df, num_rows="dynamic", key="chi_phi")
-if st.button("Lưu", key="save_cost"):
-    save_data("ChiPhi_LichTrinh", chi_phi_df)
-
-st.markdown(f"<div class='custom-metric-label'>💰 TỔNG CHI PHÍ CỐ ĐỊNH</div>", unsafe_allow_html=True)
-st.markdown(f"<div class='custom-metric-value'>{chi_phi_df['Chi phí'].sum():,}</div>", unsafe_allow_html=True)
-
 # LỊCH TRÌNH VÀ CHI PHÍ
 st.header("LỊCH TRÌNH VÀ CHI PHÍ")
 plan_df = load_data("LichTrinh")
@@ -139,4 +121,3 @@ else:
 
 st.markdown(f"<div class='custom-metric-label'>💰 SỐ DƯ HIỆN TẠI NGÀY {selected_date}</div>", unsafe_allow_html=True)
 st.markdown(f"<div class='custom-metric-value'>{int(budget_remaining):,}</div>", unsafe_allow_html=True)
-
