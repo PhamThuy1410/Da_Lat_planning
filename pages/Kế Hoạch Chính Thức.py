@@ -116,6 +116,9 @@ total_fixed_cost = chi_phi_df["Chi phí"].sum()
 # Tính tổng chi phí lịch trình theo ngày
 total_plan_cost = plan_df["Chi phí"].sum()
 
+st.markdown(f"<div class='custom-metric-label'>💰 TỔNG CHI PHÍ LỊCH TRÌNH NGÀY {selected_date}</div>", unsafe_allow_html=True)
+st.markdown(f"<div class='custom-metric-value'>{int(total_plan_cost):,}</div>", unsafe_allow_html=True)
+
 # Tính số dư hiện tại cho từng ngày
 # Lọc dữ liệu theo ngày được chọn
 plan_df["Ngày"] = pd.to_datetime(plan_df["Ngày"], errors='coerce')
