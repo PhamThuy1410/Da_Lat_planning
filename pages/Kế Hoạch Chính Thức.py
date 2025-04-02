@@ -3,11 +3,11 @@ import pandas as pd
 import gspread
 from google.oauth2.service_account import Credentials
 
-# Kết nối với Google Sheets
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 credentials = Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes=SCOPES)
-gc = gspread.authorize(credentials)
-SPREADSHEET_ID = "1pWDgcnuznQDXz-bOw1fttpZZP1-HWnW9nnznUsFHc7A"
+
+gc = gspread.Client(auth=credentials)  # Dùng Client thay vì authorize
+gc.session.headers.update({'Authorization': f'Bearer {credentials.token}'})
 
 @st.cache_data
 def get_worksheet(sheet_name):
