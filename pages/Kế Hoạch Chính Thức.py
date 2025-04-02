@@ -113,22 +113,30 @@ if st.button("Lưu", key="save_plan"):
 # Tính tổng chi phí cố định
 total_fixed_cost = chi_phi_df["Chi phí"].sum()
 
-# Tính tổng chi phí lịch trình theo ngày
-total_plan_cost = plan_df["Chi phí"].sum()
+# Tính tổng chi phí lịch trình cho ngày đã chọn
+total_plan_cost_selected_date = plan_df[plan_df["Ngày"] == selected_date]["Chi phí"].sum()
 
+# Hiển thị KPI tổng chi phí lịch trình cho ngày đã chọn
 st.markdown(f"<div class='custom-metric-label'>💰 TỔNG CHI PHÍ LỊCH TRÌNH NGÀY {selected_date}</div>", unsafe_allow_html=True)
-st.markdown(f"<div class='custom-metric-value'>{int(total_plan_cost):,}</div>", unsafe_allow_html=True)
+st.markdown(f"<div class='custom-metric-value'>{int(total_plan_cost_selected_date):,}</div>", unsafe_allow_html=True)
 
 # Tính số dư hiện tại cho từng ngày
-# Lọc dữ liệu theo ngày được chọn
-plan_df["Ngày"] = pd.to_datetime(plan_df["Ngày"], errors='coerce')
-filtered_plan_df = plan_df[plan_df["Ngày"] <= pd.to_datetime(selected_date)]
-
-# Tổng chi phí đến ngày đã chọn
-total_cost_to_date = total_fixed_cost + filtered_plan_df["Chi phí"].sum()
-
-# Tính số dư hiện tại
-budget_remaining = total_cost_people - total_cost_to_date
+# Đối với ngày đầu tiên, số dư sẽ là: (Tổng chi phí - Tổng chi phí cố định - Tổng chi phí lịch trình của ngày đầu tiên)
+if selected_date == unique_dates.min():  # Nếu là ngày đầu tiên (ngày đầu tiên sẽ có số dư từ tổng chi phí và chi phí cố định)
+    budget_remaining = total_cost_people - (total_fixed_cost + total_plan_cost_selected_date)
+else:
+    # Đối với ngày sau đó, số dư sẽ được tính từ số dư của ngày trước đó trừ đi tổng chi phí lịch trình của ngày hiện tại
+    previous_date = sorted(unique_dates)[sorted(unique_dates).index(selected_date) - 1]  # Tìm ngày trước ngày đã chọn
+    
+    # Tính tổng chi phí lịch trình cho ngày trước đó
+    total_plan_cost_previous_date = plan_df[plan_df["Ngày"] == previous_date]["Chi phí"].sum()
+    
+    # Số dư ngày trước đó
+    budget_remaining_previous = total_cost_people - (total_fixed_cost + total_plan_cost_previous_date)
+    
+    # Số dư ngày hiện tại (số dư ngày trước đó trừ đi chi phí lịch trình của ngày hiện tại)
+    budget_remaining = budget_remaining_previous - total_plan_cost_selected_date
 
 st.markdown(f"<div class='custom-metric-label'>💰 SỐ DƯ HIỆN TẠI NGÀY {selected_date}</div>", unsafe_allow_html=True)
 st.markdown(f"<div class='custom-metric-value'>{int(budget_remaining):,}</div>", unsafe_allow_html=True)
+
