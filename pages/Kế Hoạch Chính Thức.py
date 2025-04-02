@@ -115,6 +115,13 @@ st.markdown(f"<div class='custom-metric-label'>💰 TỔNG CHI PHÍ LỊCH TRÌN
 st.markdown(f"<div class='custom-metric-value'>{int(total_plan_cost):,}</div>", unsafe_allow_html=True)
 
 # SỐ DƯ HIỆN TẠI
-budget_remaining = total_cost_people - (chi_phi_df["Chi phí"].sum() + plan_df["Chi phí"].sum())
+# Lọc chi phí của các ngày trước ngày hiện tại
+filtered_plan_df_before = plan_df[plan_df["Ngày"] < selected_date]
+
+# Tính tổng chi phí cho các ngày trước ngày hiện tại
+total_previous_plan_cost = filtered_plan_df_before["Chi phí"].sum()
+
+# Số dư hiện tại sẽ là tổng chi phí của tất cả người tham gia trừ đi chi phí cố định và chi phí lịch trình trước đó
+budget_remaining = total_cost_people - (chi_phi_df["Chi phí"].sum() + total_previous_plan_cost)
 st.markdown(f"<div class='custom-metric-label'>💰 SỐ DƯ HIỆN TẠI</div>", unsafe_allow_html=True)
 st.markdown(f"<div class='custom-metric-value'>{int(budget_remaining):,}</div>", unsafe_allow_html=True)
