@@ -109,19 +109,23 @@ else:
 
 if st.button("Lưu", key="save_plan"):
     save_data("LichTrinh", plan_df)
-    
+
+# Tính tổng chi phí cố định
+total_fixed_cost = chi_phi_df["Chi phí"].sum()
+
+# Tính tổng chi phí lịch trình theo ngày
 total_plan_cost = plan_df["Chi phí"].sum()
-st.markdown(f"<div class='custom-metric-label'>💰 TỔNG CHI PHÍ LỊCH TRÌNH</div>", unsafe_allow_html=True)
-st.markdown(f"<div class='custom-metric-value'>{int(total_plan_cost):,}</div>", unsafe_allow_html=True)
 
-# SỐ DƯ HIỆN TẠI
-# Lọc chi phí của các ngày trước ngày hiện tại
-filtered_plan_df_before = plan_df[plan_df["Ngày"] < selected_date]
+# Tính số dư hiện tại cho từng ngày
+# Lọc dữ liệu theo ngày được chọn
+plan_df["Ngày"] = pd.to_datetime(plan_df["Ngày"], errors='coerce')
+filtered_plan_df = plan_df[plan_df["Ngày"] <= pd.to_datetime(selected_date)]
 
-# Tính tổng chi phí cho các ngày trước ngày hiện tại
-total_previous_plan_cost = filtered_plan_df_before["Chi phí"].sum()
+# Tổng chi phí đến ngày đã chọn
+total_cost_to_date = total_fixed_cost + filtered_plan_df["Chi phí"].sum()
 
-# Số dư hiện tại sẽ là tổng chi phí của tất cả người tham gia trừ đi chi phí cố định và chi phí lịch trình trước đó
-budget_remaining = total_cost_people - (chi_phi_df["Chi phí"].sum() + total_previous_plan_cost)
-st.markdown(f"<div class='custom-metric-label'>💰 SỐ DƯ HIỆN TẠI</div>", unsafe_allow_html=True)
+# Tính số dư hiện tại
+budget_remaining = total_cost_people - total_cost_to_date
+
+st.markdown(f"<div class='custom-metric-label'>💰 SỐ DƯ HIỆN TẠI NGÀY {selected_date}</div>", unsafe_allow_html=True)
 st.markdown(f"<div class='custom-metric-value'>{int(budget_remaining):,}</div>", unsafe_allow_html=True)
