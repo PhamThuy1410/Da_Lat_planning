@@ -86,35 +86,33 @@ st.markdown(f"<div class='custom-metric-value'>{chi_phi_df['Chi phí'].sum():,}<
 st.header("LỊCH TRÌNH VÀ CHI PHÍ")
 plan_df = load_data("LichTrinh")
 chi_phi_df = load_data("ChiPhi_LichTrinh")
+people_df = load_data("NguoiThamGia")
 
 if "Chi phí" in chi_phi_df.columns:
-    chi_phi_df["Chi phí"] = (
-        pd.to_numeric(chi_phi_df["Chi phí"].astype(str).str.replace(",", ""), errors="coerce")
-        .fillna(0)
-        .astype(int)
-    )
+    chi_phi_df["Chi phí"] = pd.to_numeric(chi_phi_df["Chi phí"].astype(str).str.replace(",", ""), errors="coerce").fillna(0).astype(int)
 else:
     chi_phi_df["Chi phí"] = 0  
 
+total_cost_people = people_df["Budget"].sum()
+
 if not plan_df.empty:
-    unique_dates = plan_df["Ngày"].unique()
-    selected_date = st.selectbox("Chọn ngày để xem lịch trình:", unique_dates)
-    
-    # Lọc dữ liệu theo ngày được chọn
-    filtered_plan_df = plan_df[plan_df["Ngày"] == selected_date]
-    
-    plan_df = st.data_editor(filtered_plan_df, num_rows="dynamic", key="plan", use_container_width=True)
+    unique_dates = sorted(plan_df["Ngày"].unique())  # Sắp xếp ngày tăng dần
+    budget_remaining_previous_day = total_cost_people - chi_phi_df["Chi phí"].sum()
+
+    for date in unique_dates:
+        filtered_plan_df = plan_df[plan_df["Ngày"] == date]
+        st.subheader(f"Lịch trình cho ngày {date}")
+        edited_df = st.data_editor(filtered_plan_df, num_rows="dynamic", key=f"plan_{date}", use_container_width=True)
+        
+        total_plan_cost = edited_df["Chi phí"].sum()
+        budget_remaining_today = budget_remaining_previous_day - total_plan_cost
+
+        st.markdown(f"<b>TỔNG CHI PHÍ: {total_plan_cost:,} VND</b>", unsafe_allow_html=True)
+        st.markdown(f"<b>SỐ DƯ HIỆN TẠI: {budget_remaining_today:,} VND</b>", unsafe_allow_html=True)
+        
+        budget_remaining_previous_day = budget_remaining_today  # Cập nhật số dư cho ngày tiếp theo
+
+    if st.button("Lưu", key="save_plan"):
+        save_data("LichTrinh", plan_df)
 else:
     st.warning("Không có dữ liệu lịch trình để hiển thị.")
-
-if st.button("Lưu", key="save_plan"):
-    save_data("LichTrinh", plan_df)
-    
-total_plan_cost = plan_df["Chi phí"].sum()
-st.markdown(f"<div class='custom-metric-label'>💰 TỔNG CHI PHÍ LỊCH TRÌNH</div>", unsafe_allow_html=True)
-st.markdown(f"<div class='custom-metric-value'>{int(total_plan_cost):,}</div>", unsafe_allow_html=True)
-
-# SỐ DƯ HIỆN TẠI
-budget_remaining = total_cost_people - (chi_phi_df["Chi phí"].sum() + plan_df["Chi phí"].sum())
-st.markdown(f"<div class='custom-metric-label'>💰 SỐ DƯ HIỆN TẠI</div>", unsafe_allow_html=True)
-st.markdown(f"<div class='custom-metric-value'>{int(budget_remaining):,}</div>", unsafe_allow_html=True)
